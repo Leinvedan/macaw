@@ -3,10 +3,10 @@ import json
 from typing import Callable
 
 
-def get_save_function() -> Callable:
+def get_write_function() -> Callable:
     '''
-    Returns the function that will save the output
-    based on the given commandline argument.
+    Returns the function that will write the parameter data
+    in the respective output of the given commandline argument.
     '''
 
     if len(sys.argv) < 2:
@@ -21,7 +21,7 @@ def get_save_function() -> Callable:
         case '--print':
             return print
         case '--to_json':
-            return save_as_json
+            return write_as_json
         case _:
             print('Invalid argument')
             print_help()
@@ -32,7 +32,7 @@ def print_help():
     print('--print: prints the result in stdout')
     print('--to_json: saves the result as plans.json file')
 
-def save_as_json(data: list[dict[str, str]]):
+def write_as_json(data: list[dict[str, str]]):
     result = json.dumps(data, indent=2)
     with open('plans.json', 'w') as f:
         f.write(result)

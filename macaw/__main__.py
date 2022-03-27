@@ -1,7 +1,7 @@
 from pathlib import Path
 import time
 from macaw.extractor import extract_link, extract_plans, get_html
-from macaw.utils import get_save_function
+from macaw.write import get_write_function
 
 
 # TODO:
@@ -11,7 +11,7 @@ from macaw.utils import get_save_function
 # repetir até achar os preços
 
 def main():
-    save = get_save_function()
+    write_data = get_write_function()
     domain = 'https://www.vultr.com'
 
     landing_page = get_html(f'{domain}/products/cloud-compute/#pricing')
@@ -26,7 +26,7 @@ def main():
     next_page_html = get_html(f'{domain}{pricing_link}')
     prices = extract_plans(next_page_html)
 
-    save(prices)
+    write_data(prices)
 
 
 if __name__ == '__main__':
