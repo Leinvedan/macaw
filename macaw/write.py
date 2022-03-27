@@ -1,6 +1,10 @@
 import sys
 import json
+import csv
+from macaw.constants import FIELD_NAMES
 from typing import Callable
+
+OUT_FILENAME = 'plans'
 
 
 def get_write_function() -> Callable:
@@ -22,6 +26,8 @@ def get_write_function() -> Callable:
             return print
         case '--save_json':
             return write_as_json
+        case '--save_csv':
+            return write_as_csv
         case _:
             print('Invalid argument')
             print_help()
@@ -32,7 +38,15 @@ def print_help():
     print('--print: prints the result in stdout')
     print('--save_json: saves the result as plans.json file')
 
+
 def write_as_json(data: list[dict[str, str]]):
     result = json.dumps(data, indent=2)
-    with open('plans.json', 'w') as f:
+    with open(f'{OUT_FILENAME}.json', 'w') as f:
         f.write(result)
+
+
+def write_as_csv(data: list[dict[str, str]]):
+    with open(f'{OUT_FILENAME}.csv', 'w') as f:
+        writer = csv.DictWriter(f, fieldnames=FIELD_NAMES)
+        writer.writeheader()
+        writer.writerows(data)

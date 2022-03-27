@@ -1,9 +1,8 @@
-FIELD_NAMES = ['CPU / VCPU', 'MEMORY', 'STORAGE / SSD DISK',
-               'BANDWIDTH / TRANSFER', 'PRICE [$/mo]']
+from macaw.constants import FIELD_NAMES
 
 
 def normalize_plan(plan: dict[str, str]) -> dict[str, str]:
-    '''maps the plan keys to the project standard'''
+    '''maps the plan keys to the project's standard'''
     result = {}
     for key in plan.keys():
         match [key.lower()]:

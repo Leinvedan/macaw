@@ -100,3 +100,9 @@ Para padronizar o nome das colunas, eu resolvi fazer uma função para fazer o `
 para um nome comum, deixando comparáveis os dados de futuras páginas.
 
 essa função de `normalize` agora é aplicada antes do processo de escrita.
+
+### Commit Etapa 1: página-alvo, imprime na tela, salva em json, salva em csv
+
+Ter os dados normalizados facilitou bastante a conversão pra CSV.
+
+Como o `FIELD_NAMES` estava sendo usado em 2 arquivos e não faz muito sentido o módulo de `normalize` importar o de escrita, resolvi criar um arquivo de constantes.
