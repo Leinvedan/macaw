@@ -1,6 +1,7 @@
 import re
 import requests
 import hashlib
+import time
 from parsel import Selector
 from os.path import exists
 
@@ -9,15 +10,24 @@ ASSET_REGEX = 'VCPU|CPU|MEMORY|STORAGE|SSD DISK|BANDWIDTH|TRANSFER|\/mo|\/hr'
 UNIT_REGEX = 'TB|GB'
 
 
-def extract_link(html: str) -> str | None:
+def extract_links(html: str, keywords: list[str] = []) -> list[str]:
+    '''
+    Extracts a list of links from the given HTML
+    The search criteria is based on the keywords.
+    Duplicates are filtered out
+    '''
+    result = []
     selector = Selector(html)
-
     links = selector.css('a').xpath('@href').getall()
-    for link in links:
-        # TODO: melhorar essa checagem de palavras chave
-        if link and '/pricing' in link and 'cloud' in link:
-            # TODO: retornar uma lista de links
-            return link
+
+    result = filter(lambda link: _keyword_filter(link, keywords), links)
+    result = list(set(result)) # remove duplicates
+    return result
+
+
+def _keyword_filter(link: str, keywords: list[str]) -> bool:
+    bool_list = [word in link for word in keywords]
+    return all(bool_list)
 
 
 def extract_plans(html: str) -> list[dict[str, str]]:
@@ -79,6 +89,7 @@ def get_html(url: str) -> str:
                 print(f'returning cached version of {url}')
                 return f.read()
 
+        time.sleep(1)  # Avoid requesting too fast
         r = requests.get(url)
         with open(file, 'w') as f:
             f.write(r.text)

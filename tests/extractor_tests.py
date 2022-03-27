@@ -1,5 +1,5 @@
 import unittest
-from macaw.extractor import extract_plans, extract_link
+from macaw.extractor import extract_plans, extract_links
 
 FIXTURE_PATH = 'tests/fixtures'
 RESULT_PATH = 'tests/results'
@@ -11,9 +11,14 @@ class ExtractTestCase(unittest.TestCase):
             self.vultr_1 = f.read()
     
     def test_extract_link(self):
-        link = extract_link(self.vultr_1)
-        expected_link = '/pricing/cloud'
-        self.assertEqual(link, expected_link)
+        keywords = ['/pricing', 'cloud']
+        expected_links = ['/pricing/cloud', '/pricing/#cloud-compute/']
+
+        links = extract_links(self.vultr_1, keywords)
+
+        self.assertTrue(expected_links[0] in links)
+        self.assertTrue(expected_links[1] in links)
+        self.assertEqual(len(expected_links), len(links))
 
     def test_extract_prices_all_values(self):
         prices = extract_plans(self.vultr_1)

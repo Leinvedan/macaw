@@ -1,34 +1,41 @@
 from pathlib import Path
-import time
-from macaw.extractor import extract_link, extract_plans, get_html
+from macaw.extractor import extract_links, extract_plans, get_html
 from macaw.writer import get_writer_function
 from macaw.normalizer import normalize_plan
 
 
-# TODO:
-# Verificar se tem os preços
-# Caso não tenha, crawlear todos os link com
-# palavras chave: [pricing, cloud] (manter uma lista de links visitados)
-# repetir até achar os preços
-
 def main():
     write_data = get_writer_function()
+
     domain = 'https://www.vultr.com'
+    path = '/products/cloud-compute/#pricing'
+    keywords = ['/pricing', 'cloud']
 
-    landing_page = get_html(f'{domain}/products/cloud-compute/#pricing')
-    pricing_link = extract_link(landing_page)
+    plans = start_crawling(domain, path, keywords)
 
-    if not pricing_link:
+    write_data(plans)
+
+
+def start_crawling(domain: str, path: str = '', keywords: list[str] = []) -> list[dict[str, str]]:
+    landing_page = get_html(f'{domain}{path}')
+    pricing_links = extract_links(landing_page, keywords)
+
+    if not pricing_links:
         print("Link not found")
         return
 
-    time.sleep(1)  # Avoid requesting to same domain too fast
+    prices = []
+    for link in pricing_links:
+        # FIXME! Sobrando tempo, fazer um mapa de links visitados
+        # e colocar a busca de links também num loop
+        next_page_html = get_html(f'{domain}{link}')
 
-    next_page_html = get_html(f'{domain}{pricing_link}')
-    prices = extract_plans(next_page_html)
+        page_prices = extract_plans(next_page_html)
+        page_prices = [normalize_plan(plan) for plan in page_prices]
 
-    prices = [normalize_plan(plan) for plan in prices]
-    write_data(prices)
+        prices = prices + page_prices
+
+    return prices
 
 
 if __name__ == '__main__':
