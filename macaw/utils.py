@@ -10,21 +10,27 @@ def get_save_function() -> Callable:
     '''
 
     if len(sys.argv) < 2:
-        exit_program()
+        print('Please choose a output argument')
+        print_help()
+        sys.exit(1)
 
     match sys.argv[1]:
+        case '--help':
+            print_help()
+            sys.exit(0)
         case '--print':
             return print
         case '--to_json':
             return save_as_json
         case _:
-            exit_program()
+            print('Invalid argument')
+            print_help()
+            sys.exit(1)
 
-def exit_program():
-    print('Please choose a output argument')
+
+def print_help():
     print('--print: prints the result in stdout')
     print('--to_json: saves the result as plans.json file')
-    sys.exit(0)
 
 def save_as_json(data: list[list[dict[str, str]]]):
     result = json.dumps(data, indent=2)
