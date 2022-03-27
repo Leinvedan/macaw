@@ -11,6 +11,7 @@
 ### output-type
 - `--print`: Imprime os resultados no terminal
 - `--save_json`: Salva os resultados num arquivo `plans.json`
+- `--save_csv`: Salva os resultados num arquivo `plans.csv`
 
 ## Os pensamentos que tive enquanto construia o projeto (diferente por commit)
 
