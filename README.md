@@ -10,6 +10,7 @@
 
 ### output-type
 - `--print`: Imprime os resultados no terminal
+- `--save_json`: Salva os resultados num arquivo `plans.json`
 
 ## Os pensamentos que tive enquanto construia o projeto (diferente por commit)
 
@@ -65,3 +66,9 @@ em que:
 A maior dificuldade nessa primeira etapa foi a construção da regex... Coloquei um tempo limite para tentar criar uma regex geral que retornasse somente os dados necessários, mas como não consegui, optei por deixar as 3 regexes separadas.
 
 Quando os dados já estavam sendo impressos na tela, resolvi escrever uns testes pra validar se os valores tavam corretos (não estavam >.>). Com os resultados dos testes fui refinando o código. 
+
+### Commit Etapa 1: página-alvo, imprime na tela, salva em json
+
+renomeei o `handle_cli` para `get_save_function` e o fiz retornar uma função responsável por tratar o output. Provavelmente vou renomear o `utils.py`.
+
+Também corrigi um bug em que argumentos de linha de comando inválidos ainda eram processados, o `match` estava sem um caso padrão
