@@ -287,4 +287,12 @@ Passar o json pelo `normalizer` atualizado e seguir o processo normal.
 
 Como o código está usando o Parsel pra extrair os dados do HTML, eu vou ter que refatorar toda a parte de renderização para fora e separar os tipos de extração HTML e JS.
 
+### Etapa 2 - feat: add xpath parameter
 
+O número de parâmetros está ficando muito grande, agora é um bom momento pra começar a agrupar os dados num objeto de configuração:
+```
+domain = 'https://www.vultr.com'
+path = '/products/cloud-compute/#pricing'
+keywords = ['/pricing', 'cloud']
+xpath = HREF_XPATH
+```

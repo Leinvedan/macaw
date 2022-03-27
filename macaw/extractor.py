@@ -10,7 +10,7 @@ ASSET_REGEX = 'VCPU|CPU|MEMORY|STORAGE|SSD DISK|BANDWIDTH|TRANSFER|\/mo|\/hr'
 UNIT_REGEX = 'TB|GB'
 
 
-def extract_links(html: str, keywords: list[str] = []) -> list[str]:
+def extract_links(html: str, xpath: str, keywords: list[str] = []) -> list[str]:
     '''
     Extracts a list of links from the given HTML
     The search criteria is based on the keywords.
@@ -18,7 +18,7 @@ def extract_links(html: str, keywords: list[str] = []) -> list[str]:
     '''
     result = []
     selector = Selector(html)
-    links = selector.css('a').xpath('@href').getall()
+    links = selector.xpath(xpath).getall()
 
     result = filter(lambda link: _keyword_filter(link, keywords), links)
     result = list(set(result)) # remove duplicates
