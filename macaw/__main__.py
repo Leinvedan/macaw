@@ -2,32 +2,20 @@ from pathlib import Path
 from macaw.extractor import extract_links, extract_plans, get_html
 from macaw.writer import get_writer_function
 from macaw.normalizer import normalize_plan
-from macaw.constants import HREF_XPATH, SCRIPT_XPATH
+from macaw.configs import VULTR_CONFIG, DOCEAN_CONFIG
 
 
 def main():
     write_data = get_writer_function()
-
-    domain = 'https://www.vultr.com'
-    path = '/products/cloud-compute/#pricing'
-    keywords = ['/pricing', 'cloud']
-    xpath = HREF_XPATH
-
-    plans = start_crawling(xpath, domain, path, keywords)
-
-    # domain = 'https://www.digitalocean.com'
-    # path = '/pricing'
-    # keywords = ['/_next/static/chunks/pages/pricing-']
-    # xpath = SCRIPT_XPATH
-
-    # plans = start_crawling(xpath, domain, path, keywords)
+    plans = start_crawling(**VULTR_CONFIG)
+    # plans = start_crawling(docean_config)
 
     write_data(plans)
 
+def start_crawling(domain: str, path: str, link_query: dict[str, str]) -> list[dict[str, str]]:
 
-def start_crawling(link_xpath: str, domain: str, path: str = '',  keywords: list[str] = []) -> list[dict[str, str]]:
     landing_page = get_html(f'{domain}{path}')
-    pricing_links = extract_links(landing_page, link_xpath, keywords)
+    pricing_links = extract_links(landing_page, **link_query)
 
     if not pricing_links:
         print("Link not found")
