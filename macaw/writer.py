@@ -7,7 +7,7 @@ from typing import Callable
 OUT_FILENAME = 'plans'
 
 
-def get_write_function() -> Callable:
+def get_writer_function() -> Callable:
     '''
     Returns the function that will write the parameter data
     in the respective output of the given commandline argument.

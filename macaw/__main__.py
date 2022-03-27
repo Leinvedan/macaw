@@ -1,7 +1,7 @@
 from pathlib import Path
 import time
 from macaw.extractor import extract_link, extract_plans, get_html
-from macaw.write import get_write_function
+from macaw.writer import get_writer_function
 from macaw.normalizer import normalize_plan
 
 
@@ -12,7 +12,7 @@ from macaw.normalizer import normalize_plan
 # repetir até achar os preços
 
 def main():
-    write_data = get_write_function()
+    write_data = get_writer_function()
     domain = 'https://www.vultr.com'
 
     landing_page = get_html(f'{domain}/products/cloud-compute/#pricing')
