@@ -34,22 +34,20 @@ class MyTestCase1(unittest.TestCase):
         number_of_matching_resources = 5
         expected_resources = [
             {
-                'type': '/hr',
-                'value': '$0.143',
+                '/hr': '$0.143',
             },
             {
-                'type': 'Bandwidth',
-                'value': '5.00TB'
+                'Bandwidth': '5.00TB'
             },
             {
-                'type': 'Storage',
-                'value': '500000000GB'
+                'Storage': '500000000GB'
             }]
+        expected_resources = list(map(lambda r: list(r.items())[0], expected_resources))
 
         found_entries = 0
         for plan in plans:
             for resource in expected_resources:
-                if resource in plan:
+                if resource in plan.items():
                     found_entries += 1
 
         self.assertEqual(found_entries, number_of_matching_resources)

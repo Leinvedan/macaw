@@ -72,3 +72,22 @@ Quando os dados já estavam sendo impressos na tela, resolvi escrever uns testes
 renomeei o `handle_cli` para `get_save_function` e o fiz retornar uma função responsável por tratar o output. Provavelmente vou renomear o `utils.py`.
 
 Também corrigi um bug em que argumentos de linha de comando inválidos ainda eram processados, o `match` estava sem um caso padrão
+
+### Commit Etapa 1: feat: update output format
+
+Pensando melhor, resolvi alterar o formato que os dados estão sendo escritos,
+até pra facilitar a escrita em CSV. Faz mais sentido os dados estarem todos dentro de um único objeto. O arquivo final também fica bem menor.
+
+Novo formato:
+```python
+[ # list of plans
+    {
+        "vCPU": "1",
+        "Memory": "1GB",
+        "Bandwidth": "2.00TB",
+        "Storage": "25GB",
+        "/mo": "$6.00",
+        "/hr": "$0.009"
+    },
+]
+```

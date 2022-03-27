@@ -32,7 +32,7 @@ def print_help():
     print('--print: prints the result in stdout')
     print('--to_json: saves the result as plans.json file')
 
-def save_as_json(data: list[list[dict[str, str]]]):
+def save_as_json(data: list[dict[str, str]]):
     result = json.dumps(data, indent=2)
     with open('plans.json', 'w') as f:
         f.write(result)

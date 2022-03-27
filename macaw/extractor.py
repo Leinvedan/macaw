@@ -20,18 +20,16 @@ def extract_link(html: str) -> str | None:
             return link
 
 
-def extract_plans(html: str) -> list[list[dict[str, str]]]:
+def extract_plans(html: str) -> list[dict[str, str]]:
     '''
     Extracts all the plans in the HTML. Each plan is composed by
     resources. The return structure is the following:
     ```python
     [ # list of plans
-        [ # list of resources
-            {
-                'type': 'Storage',
-                'value': '500GB'
-            },
-        ],
+        {
+            'Storage': '500GB',
+             "Memory": "1GB"
+        },
     ]
     ```
     '''
@@ -58,12 +56,10 @@ def extract_plans(html: str) -> list[list[dict[str, str]]]:
                     value = f'{value}{value_unit.group()}'
 
                 if len(extracted) - 1 < idx:
-                    extracted.append([])
+                    extracted.append({})
 
-                extracted[idx].append({
-                    "type": resource_type,
-                    "value": value
-                })
+                extracted[idx][f'{resource_type}'] = value
+
     return extracted
 
 
