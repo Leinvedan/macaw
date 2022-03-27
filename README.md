@@ -91,3 +91,12 @@ Novo formato:
     },
 ]
 ```
+
+### Commit Etapa 1: feat: normalize output keys
+
+Para padronizar o nome das colunas, eu resolvi fazer uma função para fazer o `normalize` das chaves. Os maiores motivos disso foram:
+- `CPU` e `vCPU` compartilham a mesma chave `CPU / VCPU`
+- Outros campos podem variar de nome, mas com esse `normalize`, fica fácil mapeá-los
+para um nome comum, deixando comparáveis os dados de futuras páginas.
+
+essa função de `normalize` agora é aplicada antes do processo de escrita.

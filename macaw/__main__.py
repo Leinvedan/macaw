@@ -2,6 +2,7 @@ from pathlib import Path
 import time
 from macaw.extractor import extract_link, extract_plans, get_html
 from macaw.write import get_write_function
+from macaw.normalizer import normalize_plan
 
 
 # TODO:
@@ -26,6 +27,7 @@ def main():
     next_page_html = get_html(f'{domain}{pricing_link}')
     prices = extract_plans(next_page_html)
 
+    prices = [normalize_plan(plan) for plan in prices]
     write_data(prices)
 
 
