@@ -1,12 +1,11 @@
 import unittest
-from test import support
 from macaw.extractor import extract_plans, extract_link
 
 FIXTURE_PATH = 'tests/fixtures'
 RESULT_PATH = 'tests/results'
 
 
-class MyTestCase1(unittest.TestCase):
+class ExtractTestCase(unittest.TestCase):
     def setUp(self):
         with open(f'{FIXTURE_PATH}/vultr_1.html', 'r') as f:
             self.vultr_1 = f.read()
