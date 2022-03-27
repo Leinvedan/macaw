@@ -1,7 +1,7 @@
 import sys
 import json
 import csv
-from macaw.constants import FIELD_NAMES
+from macaw.configs import FIELD_NAMES
 from typing import Callable
 
 OUT_FILENAME = 'plans'

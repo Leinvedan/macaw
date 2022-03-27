@@ -1,4 +1,9 @@
-from macaw.constants import HREF_XPATH, SCRIPT_XPATH
+HREF_XPATH = '//a/@href'
+SCRIPT_XPATH = '//script/@src'
+
+FIELD_NAMES = ['CPU / VCPU', 'MEMORY', 'STORAGE / SSD DISK',
+               'BANDWIDTH / TRANSFER', 'PRICE [$/mo]']
+
 
 VULTR_CONFIG = {
     'domain': 'https://www.vultr.com',

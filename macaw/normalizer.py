@@ -1,4 +1,4 @@
-from macaw.constants import FIELD_NAMES
+from macaw.configs import FIELD_NAMES
 
 
 def normalize_plan(plan: dict[str, str]) -> dict[str, str]:

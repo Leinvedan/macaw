@@ -1,8 +1,10 @@
 from pathlib import Path
-from macaw.extractor import extract_links, extract_plans, get_html
+from macaw.network import get_html
 from macaw.writer import get_writer_function
 from macaw.normalizer import normalize_plan
 from macaw.configs import VULTR_CONFIG, DOCEAN_CONFIG
+from macaw.extractors.links import extract_links
+from macaw.extractors.plans import extract_plans
 
 
 def main():

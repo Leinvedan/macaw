@@ -1,6 +1,7 @@
 import unittest
-from macaw.extractor import extract_plans, extract_links
-from macaw.constants import HREF_XPATH, SCRIPT_XPATH
+from macaw.extractors.plans import extract_plans
+from macaw.extractors.links import extract_links
+from macaw.configs import HREF_XPATH, SCRIPT_XPATH
 
 FIXTURE_PATH = 'tests/fixtures'
 RESULT_PATH = 'tests/results'

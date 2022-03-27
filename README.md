@@ -297,3 +297,12 @@ path = '/products/cloud-compute/#pricing'
 keywords = ['/pricing', 'cloud']
 xpath = HREF_XPATH
 ```
+
+### Etapa 2 - refactor: rearrange extractor and constants
+
+Agora que a lógica de extrair os planos vai ser dividida em `js` e `html`, pensei em separar as extrações na seguinte forma:
+- extractors.links => Funções para extração de links num `html`
+- extractors.plans => Funções para extração de planos em `js` ou `html`
+
+A existência do `constants` e `configs` estava ambígua, resolvi juntar ambos no `configs`.
+

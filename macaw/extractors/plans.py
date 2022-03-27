@@ -1,33 +1,10 @@
 import re
-import requests
-import hashlib
-import time
 from parsel import Selector
-from os.path import exists
+
 
 NUMBER_REGEX = '\$?[+-]?[0-9]{1,3}(?:[0-9]*(?:[.,][0-9]+)?|(?:,[0-9]{3})*(?:\.[0-9]{2})?|(?:\.[0-9]{3})*(?:,[0-9]{2})?)'
 ASSET_REGEX = 'VCPU|CPU|MEMORY|STORAGE|SSD DISK|BANDWIDTH|TRANSFER|\/mo|\/hr'
 UNIT_REGEX = 'TB|GB'
-
-
-def extract_links(html: str, xpath: str, keywords: list[str] = []) -> list[str]:
-    '''
-    Extracts a list of links from the given HTML
-    The search criteria is based on the keywords.
-    Duplicates are filtered out
-    '''
-    result = []
-    selector = Selector(html)
-    links = selector.xpath(xpath).getall()
-
-    result = filter(lambda link: _keyword_filter(link, keywords), links)
-    result = list(set(result)) # remove duplicates
-    return result
-
-
-def _keyword_filter(link: str, keywords: list[str]) -> bool:
-    bool_list = [word in link for word in keywords]
-    return all(bool_list)
 
 
 def extract_plans(html: str) -> list[dict[str, str]]:
@@ -71,30 +48,3 @@ def extract_plans(html: str) -> list[dict[str, str]]:
                 extracted[idx][f'{resource_type}'] = value
 
     return extracted
-
-
-def get_html(url: str) -> str:
-    '''
-    Returns local cached HTML to avoid multiple requests
-    on the same page.
-
-    If the cache is not found, then the request is made to the url
-    '''
-    try:
-        cache_key = hashlib.sha224(bytes(url, 'UTF-8')).hexdigest()
-        file = f'cache/{cache_key}.html'
-
-        if exists(file):
-            with open(file, 'r') as f:
-                print(f'returning cached version of {url}')
-                return f.read()
-
-        time.sleep(1)  # Avoid requesting too fast
-        r = requests.get(url)
-        with open(file, 'w') as f:
-            f.write(r.text)
-            print(f'retuning fresh version of {url}')
-            return r.text
-    except Exception as err:
-        print(f"Error using {url}: {err}")
-        raise Exception(err)
