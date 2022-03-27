@@ -20,7 +20,7 @@ def get_write_function() -> Callable:
             sys.exit(0)
         case '--print':
             return print
-        case '--to_json':
+        case '--save_json':
             return write_as_json
         case _:
             print('Invalid argument')
@@ -30,7 +30,7 @@ def get_write_function() -> Callable:
 
 def print_help():
     print('--print: prints the result in stdout')
-    print('--to_json: saves the result as plans.json file')
+    print('--save_json: saves the result as plans.json file')
 
 def write_as_json(data: list[dict[str, str]]):
     result = json.dumps(data, indent=2)
