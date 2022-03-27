@@ -1,3 +1,9 @@
+from enum import Enum
+
+class PageType(Enum):
+    HTML='html'
+    JS='js'
+
 HREF_XPATH = '//a/@href'
 SCRIPT_XPATH = '//script/@src'
 

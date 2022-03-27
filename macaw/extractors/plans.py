@@ -1,5 +1,6 @@
 import re
 from parsel import Selector
+from macaw.configs import PageType
 
 
 NUMBER_REGEX = '\$?[+-]?[0-9]{1,3}(?:[0-9]*(?:[.,][0-9]+)?|(?:,[0-9]{3})*(?:\.[0-9]{2})?|(?:\.[0-9]{3})*(?:,[0-9]{2})?)'
@@ -7,7 +8,14 @@ ASSET_REGEX = 'VCPU|CPU|MEMORY|STORAGE|SSD DISK|BANDWIDTH|TRANSFER|\/mo|\/hr'
 UNIT_REGEX = 'TB|GB'
 
 
-def extract_plans(html: str) -> list[dict[str, str]]:
+def extract_plans(content: str, content_type: str) -> list[dict[str, str]]:
+    match content_type:
+        case PageType.HTML:
+            return extract_from_html(content)
+    return
+
+
+def extract_from_html(html: str) -> list[dict[str, str]]:
     '''
     Extracts all the plans in the HTML. Each plan is composed by
     resources. The return structure is the following:

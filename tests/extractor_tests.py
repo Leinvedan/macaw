@@ -1,7 +1,7 @@
 import unittest
 from macaw.extractors.plans import extract_plans
 from macaw.extractors.links import extract_links
-from macaw.configs import HREF_XPATH, SCRIPT_XPATH
+from macaw.configs import HREF_XPATH, SCRIPT_XPATH, PageType
 
 FIXTURE_PATH = 'tests/fixtures'
 RESULT_PATH = 'tests/results'
@@ -34,7 +34,7 @@ class ExtractTestCase(unittest.TestCase):
         self.assertTrue(expected_link in links)
 
     def test_extract_prices_all_values(self):
-        prices = extract_plans(self.vultr_1)
+        prices = extract_plans(self.vultr_1, PageType.HTML)
         total_machines = 16
         expected = None
         # with open(f'{RESULT_PATH}/vultr_1.txt', 'w') as f:
@@ -47,7 +47,7 @@ class ExtractTestCase(unittest.TestCase):
         self.assertEqual(len(prices), total_machines)
 
     def test_item_exists_inside_prices(self):
-        plans = extract_plans(self.vultr_1)
+        plans = extract_plans(self.vultr_1, PageType.HTML)
         number_of_matching_resources = 5
         expected_resources = [
             {
