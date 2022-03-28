@@ -1,6 +1,6 @@
 import unittest
-from macaw.extractors.plans import extract_plans, extract_from_docean_js
-from macaw.configs import PageType
+from macaw.extractors.spiders.docean import parse_js as parse_docean_js
+from macaw.extractors.spiders.vultr import parse_html as parse_vultr_html
 
 FIXTURE_PATH = 'tests/fixtures'
 RESULT_PATH = 'tests/results'
@@ -16,7 +16,7 @@ class ExtractTestCase(unittest.TestCase):
             self.docean_2 = f.read()
 
     def test_extract_prices_all_values(self):
-        prices = extract_plans(self.vultr_1, PageType.HTML)
+        prices = parse_vultr_html(self.vultr_1)
         total_machines = 16
         expected = None
         # with open(f'{RESULT_PATH}/vultr_1.txt', 'w') as f:
@@ -28,7 +28,7 @@ class ExtractTestCase(unittest.TestCase):
         self.assertEqual(len(prices), total_machines)
 
     def test_item_exists_inside_prices(self):
-        plans = extract_plans(self.vultr_1, PageType.HTML)
+        plans = parse_vultr_html(self.vultr_1)
         number_of_matching_resources = 5
         expected_resources = [
             {
@@ -67,7 +67,7 @@ class ExtractTestCase(unittest.TestCase):
         'cpuType': '2 AMD CPUs', 'ssdAmount': '80GB', 'ssdType': 'NVMe SSDs',
         'transferAmount': '4TB', 'link': 's-2vcpu-4gb-amd'}]
 
-        result = extract_from_docean_js(self.docean_2)
+        result = parse_docean_js(self.docean_2)
         self.assertEqual(result, expected)
 
 

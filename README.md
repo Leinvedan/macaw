@@ -79,13 +79,13 @@ A maior dificuldade nessa primeira etapa foi a construção da regex... Coloquei
 
 Quando os dados já estavam sendo impressos na tela, resolvi escrever uns testes pra validar se os valores tavam corretos (não estavam >.>). Com os resultados dos testes fui refinando o código. 
 
-### Commit Etapa 1: página-alvo, imprime na tela, salva em json
+### Commit Etapa 2: página-alvo, imprime na tela, salva em json
 
 renomeei o `handle_cli` para `get_save_function` e o fiz retornar uma função responsável por tratar o output. Provavelmente vou renomear o `utils.py`.
 
 Também corrigi um bug em que argumentos de linha de comando inválidos ainda eram processados, o `match` estava sem um caso padrão
 
-### Commit Etapa 1: feat: update output format
+### Commit Etapa 2: feat: update output format
 
 Pensando melhor, resolvi alterar o formato que os dados estão sendo escritos,
 até pra facilitar a escrita em CSV. Faz mais sentido os dados estarem todos dentro de um único objeto. O arquivo final também fica bem menor.
@@ -104,7 +104,7 @@ Novo formato:
 ]
 ```
 
-### Commit Etapa 1: feat: normalize output keys
+### Commit Etapa 2: feat: normalize output keys
 
 Para padronizar o nome das colunas, eu resolvi fazer uma função para fazer o `normalize` das chaves. Os maiores motivos disso foram:
 - `CPU` e `vCPU` compartilham a mesma chave `CPU / VCPU`
@@ -113,13 +113,13 @@ para um nome comum, deixando comparáveis os dados de futuras páginas.
 
 essa função de `normalize` agora é aplicada antes do processo de escrita.
 
-### Commit Etapa 1: página-alvo, imprime na tela, salva em json, salva em csv
+### Commit Etapa 3: página-alvo, imprime na tela, salva em json, salva em csv
 
 Ter os dados normalizados facilitou bastante a conversão pra CSV.
 
 Como o `FIELD_NAMES` estava sendo usado em 2 arquivos e não faz muito sentido o módulo de `normalize` importar o de escrita, resolvi criar um arquivo de constantes.
 
-### Etapa 2
+### Etapa 4
 
 ### Encontrando os preços
 
@@ -299,7 +299,7 @@ Passar o json pelo `normalizer` atualizado e seguir o processo normal.
 
 Como o código está usando o Parsel pra extrair os dados do HTML, eu vou ter que refatorar toda a parte de renderização para fora e separar os tipos de extração HTML e JS.
 
-### Etapa 2 - feat: add xpath parameter
+### Etapa 4 - feat: add xpath parameter
 
 O número de parâmetros está ficando muito grande, agora é um bom momento pra começar a agrupar os dados num objeto de configuração:
 ```
@@ -309,7 +309,7 @@ keywords = ['/pricing', 'cloud']
 xpath = HREF_XPATH
 ```
 
-### Etapa 2 - refactor: rearrange extractor and constants
+### Etapa 4 - refactor: rearrange extractor and constants
 
 Agora que a lógica de extrair os planos vai ser dividida em `js` e `html`, pensei em separar as extrações na seguinte forma:
 - extractors.links => Funções para extração de links num `html`
@@ -317,7 +317,7 @@ Agora que a lógica de extrair os planos vai ser dividida em `js` e `html`, pens
 
 A existência do `constants` e `configs` estava ambígua, resolvi juntar ambos no `configs`.
 
-### Etapa 2 - 2 páginas-alvo
+### Etapa 4 - 2 páginas-alvo
 
 Tirando o processo de extração dos dados do JS, todo o resto do código foi reaproveitado(leitura das configurações, normalização e gravação em arquivos).
 
@@ -331,3 +331,9 @@ Alguns detalhes que ainda dão pra melhorar:
 como o objeto javascript não é um json válido, tive de fazer a conversão. As bibliotecas que encontrei online `json5` e `pyjson5` tinham poucos usuários, então optei por fazer uma função de conversão simples.
 
 O enum de js e html(PageType) já não faz mais muito sentido existir, já que as extrações são muito específicas para as páginas. Vou optar por separar os métodos de extração por tipo de página, futuramente.
+
+
+## Etapa 4 - refactor: separate page extracting logic into 'spider' files
+
+Lembrei que o Scrappy tinha uma lógica em que, cada extrator era uma `spider`. Resolvi trazer a mesma abstração para esse projeto. Cada função que possui uma lógica relacionada à extração de uma página será uma `spider`.
+

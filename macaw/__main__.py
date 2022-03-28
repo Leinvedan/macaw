@@ -1,10 +1,10 @@
 from pathlib import Path
+from typing import Callable
 from macaw.network import get_content
 from macaw.writer import get_writer_function
 from macaw.normalizer import normalize_plan
 from macaw.configs import VULTR_CONFIG, DOCEAN_CONFIG
 from macaw.extractors.links import extract_links
-from macaw.extractors.plans import extract_plans
 
 
 def main():
@@ -16,9 +16,9 @@ def main():
     write_data(plans)
 
 
-def start_crawling(origin: str, domain: str, path: str, link_query: dict[str, str]) -> list[dict[str, str]]:
+def start_crawling(origin: str, domain: str, path: str, run_spider: Callable, link_query: dict[str, str]) -> list[dict[str, str]]:
 
-    landing_page, _ = get_content(f'{domain}{path}')
+    landing_page = get_content(f'{domain}{path}')
     pricing_links = extract_links(landing_page, **link_query)
 
     if not pricing_links:
@@ -27,12 +27,10 @@ def start_crawling(origin: str, domain: str, path: str, link_query: dict[str, st
 
     prices = []
     for link in pricing_links:
-        # FIXME! Sobrando tempo, fazer um mapa de links visitados
-        # e colocar a busca de links também num loop
 
-        next_page, page_type = get_content(f'{domain}{link}')
+        next_page = get_content(f'{domain}{link}')
+        page_prices = run_spider(next_page)
 
-        page_prices = extract_plans(next_page, page_type)
         if page_prices:
             page_prices = [normalize_plan(plan, origin) for plan in page_prices]
             prices = prices + page_prices
