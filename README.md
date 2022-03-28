@@ -1,5 +1,16 @@
 # Macaw o Web Crawler!
 
+## Aviso sobre commits antigos!
+
+Os commits antigos estão organizados em tags para facilitar a consulta:
+
+- e1 = 1 página-alvo, imprime na tela
+- e2 = 1 página-alvo, imprime na tela, salva em json
+- e3 = 1 página-alvo, imprime na tela, salva em json, salva em csv
+- e4 = 2 páginas-alvo
+
+A branch `master` é a versão final
+
 ## Executando o projeto
 
 - Instalar dependencias: `pip install -r requirements.txt`
