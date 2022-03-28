@@ -7,11 +7,12 @@ class PageType(Enum):
 HREF_XPATH = '//a/@href'
 SCRIPT_XPATH = '//script/@src'
 
-FIELD_NAMES = ['CPU / VCPU', 'MEMORY', 'STORAGE / SSD DISK',
+FIELD_NAMES = ['ORIGIN','CPU / VCPU', 'MEMORY', 'STORAGE / SSD DISK',
                'BANDWIDTH / TRANSFER', 'PRICE [$/mo]']
 
 
 VULTR_CONFIG = {
+    'origin': 'vultr',
     'domain': 'https://www.vultr.com',
     'path': '/products/cloud-compute/#pricing',
     'link_query': {
@@ -21,6 +22,7 @@ VULTR_CONFIG = {
 }
 
 DOCEAN_CONFIG = {
+    'origin': 'docean',
     'domain': 'https://www.digitalocean.com',
     'path': '/pricing',
     'link_query': {

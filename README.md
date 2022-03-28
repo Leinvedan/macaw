@@ -306,3 +306,17 @@ Agora que a lógica de extrair os planos vai ser dividida em `js` e `html`, pens
 
 A existência do `constants` e `configs` estava ambígua, resolvi juntar ambos no `configs`.
 
+### Etapa 2 - 2 páginas-alvo
+
+Tirando o processo de extração dos dados do JS, todo o resto do código foi reaproveitado(leitura das configurações, normalização e gravação em arquivos).
+
+os resultados das duas páginas são armazenados juntos nos arquivos de saída, aproveitei e adicionei mais uma coluna `source` pra dizer de onde vieram os dados.
+
+Alguns detalhes que ainda dão pra melhorar:
+1. revisar os regexes das 2 páginas
+2. A parte de juntar 2 blocos de informação ficou complexa
+4. Fiquei pensando se não seria melhor usar uma forma de executar o javascript e coletar os dados, mas a complexidade do projeto poderia crescer muito.
+
+como o objeto javascript não é um json válido, tive de fazer a conversão. As bibliotecas que encontrei online `json5` e `pyjson5` tinham poucos usuários, então optei por fazer uma função de conversão simples.
+
+O enum de js e html(PageType) já não faz mais muito sentido existir, já que as extrações são muito específicas para as páginas. Vou optar por separar os métodos de extração por tipo de página, futuramente.

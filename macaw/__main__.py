@@ -9,12 +9,14 @@ from macaw.extractors.plans import extract_plans
 
 def main():
     write_data = get_writer_function()
-    plans = start_crawling(**VULTR_CONFIG)
-    # plans = start_crawling(docean_config)
+    plans_vultr = start_crawling(**VULTR_CONFIG)
+    plans_docean = start_crawling(**DOCEAN_CONFIG)
+    plans = plans_vultr + plans_docean
 
     write_data(plans)
 
-def start_crawling(domain: str, path: str, link_query: dict[str, str]) -> list[dict[str, str]]:
+
+def start_crawling(origin: str, domain: str, path: str, link_query: dict[str, str]) -> list[dict[str, str]]:
 
     landing_page, _ = get_content(f'{domain}{path}')
     pricing_links = extract_links(landing_page, **link_query)
@@ -32,7 +34,7 @@ def start_crawling(domain: str, path: str, link_query: dict[str, str]) -> list[d
 
         page_prices = extract_plans(next_page, page_type)
         if page_prices:
-            page_prices = [normalize_plan(plan) for plan in page_prices]
+            page_prices = [normalize_plan(plan, origin) for plan in page_prices]
             prices = prices + page_prices
 
     return prices

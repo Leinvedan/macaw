@@ -4,7 +4,9 @@ from macaw.normalizer import normalize_plan
 
 class NormalizerTestCase(unittest.TestCase):
     def setUp(self):
+        self.origin = 'test'
         self.expected = {
+            "ORIGIN": self.origin,
             "CPU / VCPU": "1",
             "MEMORY": "1GB",
             "STORAGE / SSD DISK": "25GB",
@@ -20,7 +22,7 @@ class NormalizerTestCase(unittest.TestCase):
             "/mo": "$6.00",
             "/hr": "$0.009"
         }
-        result = normalize_plan(plan)
+        result = normalize_plan(plan, self.origin)
         self.assertEqual(result, self.expected)
 
 
@@ -32,7 +34,7 @@ class NormalizerTestCase(unittest.TestCase):
             "StorAGE": "25GB",
             "/mo": "$6.00"
         }
-        result = normalize_plan(plan)
+        result = normalize_plan(plan, self.origin)
         self.assertEqual(result, self.expected)
     
     def test_normalize_order_insensitive(self):
@@ -44,7 +46,7 @@ class NormalizerTestCase(unittest.TestCase):
             "CPU": "1",
             "/mo": "$6.00",
         }
-        result = normalize_plan(plan)
+        result = normalize_plan(plan, self.origin)
         self.assertEqual(result, self.expected)
 
 if __name__ == '__main__':
