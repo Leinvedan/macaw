@@ -16,14 +16,17 @@ def main():
     write_data(plans)
 
 
-def start_crawling(origin: str, domain: str, path: str, run_spider: Callable, link_query: dict[str, str]) -> list[dict[str, str]]:
+def start_crawling(origin: str, run_spider: Callable, url: dict[str, str],
+                   link_query: dict[str, str]) -> list[dict[str, str]]:
+    domain = url['domain']
+    path = url['path']
 
     landing_page = get_content(f'{domain}{path}')
     pricing_links = extract_links(landing_page, **link_query)
 
     if not pricing_links:
         print("Link not found")
-        return
+        return []
 
     prices = []
     for link in pricing_links:
@@ -32,7 +35,8 @@ def start_crawling(origin: str, domain: str, path: str, run_spider: Callable, li
         page_prices = run_spider(next_page)
 
         if page_prices:
-            page_prices = [normalize_plan(plan, origin) for plan in page_prices]
+            page_prices = [normalize_plan(plan, origin)
+                           for plan in page_prices]
             prices = prices + page_prices
 
     return prices
