@@ -1,0 +1,9 @@
+[MASTER]
+disable=
+    C0114, # missing-module-docstring
+    C0115, # missing-class-docstring
+    C0116, # missing-function-docstring
+    import-error,
+    E1136, # false positive with dict type
+    E0001, # false positive with python 3.10 `match`
+    
