@@ -1,28 +1,49 @@
 # Macaw o Web Crawler!
 
+## Executando o projeto
+
+**`Macaw`** pode ser executado tanto com argumentos de linha de comando, quanto de forma iterativa.
+
+### Com Python
+
+- Instalar dependencias: `make setup`
+- Executar os testes: `make test`
+- Executar lint: `make lint`
+- Executar o projeto: 
+  - Com argumentos: `python -m macaw [args]`, ex: `python -m macaw --save_json`
+  - Iterativa: `python -m macaw` ou `make run`
+
+#### Exemplos:
+```bash
+python -m macaw --print
+python -m macaw --save_csv
+python -m macaw --save_json
+```
+
+> Obs: Docker e makefile só dão suporte à execução iterativa
+
+### Com docker
+- Build da imagem: `make docker-build`
+- Executar a imagem: `make docker-run`
+
+### Argumentos
+
+| Argumento                    | Descrição                    |
+|------------------------------|------------------------------|
+| `--print`    | Imprime os resultados no terminal            |
+| `--save_json`| Salva os resultados no arquivo  `plans.json` |
+| `--save_csv` | Salva os resultados num arquivo  `plans.csv` |
+
 ## Aviso sobre commits antigos!
 
-Os commits antigos estão organizados em tags para facilitar a consulta:
+Os commits antigos estão organizados em tags para facilitar a consulta. Cada tag representa o `primeiro momento` em que a feature ficou pronta.
 
 - e1 = 1 página-alvo, imprime na tela
 - e2 = 1 página-alvo, imprime na tela, salva em json
 - e3 = 1 página-alvo, imprime na tela, salva em json, salva em csv
 - e4 = 2 páginas-alvo
 
-A branch `master` é a versão final
-
-## Executando o projeto
-
-- Instalar dependencias: `pip install -r requirements.txt`
-- Executar o projeto: `python -m macaw [output-type]`
-- Executar os testes: `python -m unittest tests/*.py`
-
-## Argumentos
-
-### output-type
-- `--print`: Imprime os resultados no terminal
-- `--save_json`: Salva os resultados num arquivo `plans.json`
-- `--save_csv`: Salva os resultados num arquivo `plans.csv`
+A branch `master` é a **versão final**
 
 ## Os pensamentos que tive enquanto construia o projeto (diferente por commit)
 
@@ -337,3 +358,6 @@ O enum de js e html(PageType) já não faz mais muito sentido existir, já que a
 
 Lembrei que o Scrappy tinha uma lógica em que, cada extrator era uma `spider`. Resolvi trazer a mesma abstração para esse projeto. Cada função que possui uma lógica relacionada à extração de uma página será uma `spider`.
 
+# Extras
+
+Coloquei um docker para facilitar quem não usa um virtualenv. Também adicionei uma versão iterativa, em vez do programa fechar quando ele não recebe nenhum argumento.
