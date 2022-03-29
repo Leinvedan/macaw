@@ -1,5 +1,6 @@
 from parsel import Selector
 
+# pylint: disable=dangerous-default-value
 def extract_links(html: str, xpath: str, keywords: list[str] = []) -> list[str]:
     '''
     Extracts a list of links from the given HTML

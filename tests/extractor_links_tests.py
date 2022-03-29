@@ -8,10 +8,10 @@ RESULT_PATH = 'tests/results'
 
 class ExtractLinkTestCase(unittest.TestCase):
     def setUp(self):
-        with open(f'{FIXTURE_PATH}/vultr_1.html', 'r') as f:
-            self.vultr_1 = f.read()
-        with open(f'{FIXTURE_PATH}/docean_1.html', 'r') as f:
-            self.docean_1 = f.read()
+        with open(f'{FIXTURE_PATH}/vultr_1.html', 'r', encoding='UTF-8') as file:
+            self.vultr_1 = file.read()
+        with open(f'{FIXTURE_PATH}/docean_1.html', 'r', encoding='UTF-8') as file:
+            self.docean_1 = file.read()
 
     def test_extract_link_vultr_1(self):
         keywords = ['/pricing', 'cloud']

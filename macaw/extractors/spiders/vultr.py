@@ -1,7 +1,7 @@
 import re
 from parsel import Selector
 
-
+# pylint:disable=line-too-long
 NUMBER_REGEX = r'\$?[+-]?[0-9]{1,3}(?:[0-9]*(?:[.,][0-9]+)?|(?:,[0-9]{3})*(?:\.[0-9]{2})?|(?:\.[0-9]{3})*(?:,[0-9]{2})?)'
 ASSET_REGEX = r'VCPU|CPU|MEMORY|STORAGE|SSD DISK|BANDWIDTH|TRANSFER|\/mo|\/hr'
 UNIT_REGEX = r'TB|GB'

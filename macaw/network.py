@@ -1,15 +1,15 @@
-import requests
-import hashlib
 import time
+import hashlib
 from os.path import exists
+import requests
 
 
 def get_content(url: str) -> str:
     '''
-    Returns a tuple with `content type` and 
+    Returns a tuple with `content type` and
     `local cached` content to avoid multiple requests
     on the same page.
-    
+
     - return: `(type: PageType, content: str)`
 
     If the cache is not found, then `a request is made` to the url
@@ -19,26 +19,26 @@ def get_content(url: str) -> str:
         file = f'cache/{cache_key}.{_get_file_type(url)}'
 
         if exists(file):
-            with open(file, 'r') as f:
+            with open(file, 'r', encoding='UTF-8') as file:
                 print(f'returning cached version of {url}')
-                return f.read()
+                return file.read()
 
         time.sleep(1)  # Avoid requesting too fast
 
-        r = requests.get(url)
-        with open(file, 'w') as f:
-            f.write(r.text)
+        response = requests.get(url)
+        with open(file, 'w', encoding='UTF-8') as file:
+            file.write(response.text)
             print(f'retuning fresh version of {url}')
-            return r.text
+            return response.text
 
     except Exception as err:
         print(f"Error using {url}: {err}")
-        raise Exception(err)
+        raise Exception(err) from err
 
 
 def _get_file_type(url: str) -> str:
     '''
-    Returns a `PageType` enum with the 
+    Returns a `PageType` enum with the
     url's target page type (js, html)
     '''
     if '.js' in url:

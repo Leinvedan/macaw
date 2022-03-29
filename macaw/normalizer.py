@@ -2,7 +2,7 @@ from macaw.configs import FIELD_NAMES
 
 
 def normalize_plan(plan: dict[str, str], origin: str) -> dict[str, str]:
-    '''maps the plan keys (in lowercase!!!!!!) 
+    '''maps the plan keys (in lowercase!!!!!!)
     to the project's standard'''
     result = {}
     result[FIELD_NAMES[0]] = origin

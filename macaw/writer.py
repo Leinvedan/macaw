@@ -41,12 +41,12 @@ def print_help():
 
 def write_as_json(data: list[dict[str, str]]):
     result = json.dumps(data, indent=2)
-    with open(f'{OUT_FILENAME}.json', 'w') as f:
-        f.write(result)
+    with open(f'{OUT_FILENAME}.json', 'w', encoding='UTF-8') as file:
+        file.write(result)
 
 
 def write_as_csv(data: list[dict[str, str]]):
-    with open(f'{OUT_FILENAME}.csv', 'w') as f:
-        writer = csv.DictWriter(f, fieldnames=FIELD_NAMES)
+    with open(f'{OUT_FILENAME}.csv', 'w', encoding='UTF-8') as file:
+        writer = csv.DictWriter(file, fieldnames=FIELD_NAMES)
         writer.writeheader()
         writer.writerows(data)

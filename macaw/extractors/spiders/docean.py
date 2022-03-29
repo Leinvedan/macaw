@@ -3,6 +3,7 @@ import json
 
 
 SIZE_ID_REGEX = r'{size_id:"\d+"+.*?}}}'
+# pylint:disable=line-too-long
 RESOURCE_REGEX_TEMPLATE = r'\{{.+?\$"\.concat\(Vt\("droplet","{}".+?(?<=\)\),)(?P<resource>.+?(?=}}))'
 CAT_REGULAR_REGEX = r'[{|,]regular.+?}]'
 CAT_PREMIUM_AMD_REGEX = r'[{|,]premiumAMD.+?}]'
@@ -67,8 +68,8 @@ def _extract_from_docean_category(category: str, first_halfs) -> dict[str, str]:
 
 
 def _js_to_json(js_data: str):
-    KEY_REGEX = '[{,](.*?):'
-    keys = re.findall(KEY_REGEX, js_data)
+    key_regex = '[{,](.*?):'
+    keys = re.findall(key_regex, js_data)
     for key in keys:
         js_data = js_data.replace(f'{key}', f'"{key}"')
     return json.loads(js_data)

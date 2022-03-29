@@ -12,12 +12,12 @@ RESULT_PATH = 'tests/results'
 class ExtractTestCase(unittest.TestCase):
     def setUp(self):
         self.origin = 'test'
-        with open(f'{FIXTURE_PATH}/vultr_1.html', 'r') as f:
-            self.vultr_1 = f.read()
-        with open(f'{FIXTURE_PATH}/docean_1.html', 'r') as f:
-            self.docean_1 = f.read()
-        with open(f'{FIXTURE_PATH}/docean_2.js', 'r') as f:
-            self.docean_2 = f.read()
+        with open(f'{FIXTURE_PATH}/vultr_1.html', 'r', encoding='UTF-8') as file:
+            self.vultr_1 = file.read()
+        with open(f'{FIXTURE_PATH}/docean_1.html', 'r', encoding='UTF-8') as file:
+            self.docean_1 = file.read()
+        with open(f'{FIXTURE_PATH}/docean_2.js', 'r', encoding='UTF-8') as file:
+            self.docean_2 = file.read()
 
     def test_extract_prices_all_values(self):
         plans = parse_vultr_html(self.vultr_1)
@@ -26,8 +26,8 @@ class ExtractTestCase(unittest.TestCase):
         expected = None
         # with open(f'{RESULT_PATH}/vultr_1.json', 'w') as f:
         #     f.write(json.dumps(plans))
-        with open(f'{RESULT_PATH}/vultr_1.json', 'r') as f:
-            expected = json.loads(f.read())
+        with open(f'{RESULT_PATH}/vultr_1.json', 'r', encoding='UTF-8') as file:
+            expected = json.loads(file.read())
 
         self.assertEqual(plans, expected)
         self.assertEqual(len(plans), total_machines)
@@ -60,8 +60,8 @@ class ExtractTestCase(unittest.TestCase):
         plans = parse_docean_js(self.docean_2)
         plans = [normalize_plan(plan, self.origin) for plan in plans]
 
-        with open(f'{RESULT_PATH}/docean_2.json', 'r') as f:
-            expected = json.loads(f.read())
+        with open(f'{RESULT_PATH}/docean_2.json', 'r', encoding='UTF-8') as file:
+            expected = json.loads(file.read())
 
         self.assertEqual(plans, expected)
 
