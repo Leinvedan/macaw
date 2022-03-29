@@ -1,0 +1,42 @@
+[
+  {
+    "ORIGIN": "test",
+    "PRICE [$/mo]": "96.00",
+    "MEMORY": "1GB",
+    "CPU / VCPU": "1vCPU",
+    "STORAGE / SSD DISK": "25GB",
+    "BANDWIDTH / TRANSFER": "1000GB"
+  },
+  {
+    "ORIGIN": "test",
+    "PRICE [$/mo]": "6.00",
+    "MEMORY": "2GB",
+    "CPU / VCPU": "1vCPU",
+    "STORAGE / SSD DISK": "50GB",
+    "BANDWIDTH / TRANSFER": "2TB"
+  },
+  {
+    "ORIGIN": "test",
+    "PRICE [$/mo]": "18.00",
+    "MEMORY": "8GB",
+    "CPU / VCPU": "4vCPUs",
+    "STORAGE / SSD DISK": "160GB",
+    "BANDWIDTH / TRANSFER": "5TB"
+  },
+  {
+    "ORIGIN": "test",
+    "PRICE [$/mo]": "12.00",
+    "MEMORY": "16GB",
+    "CPU / VCPU": "8 AMD CPUs",
+    "STORAGE / SSD DISK": "320GB",
+    "BANDWIDTH / TRANSFER": "6TB"
+  },
+  {
+    "ORIGIN": "test",
+    "PRICE [$/mo]": "24.00",
+    "MEMORY": "4GB",
+    "CPU / VCPU": "2 AMD CPUs",
+    "STORAGE / SSD DISK": "80GB",
+    "BANDWIDTH / TRANSFER": "4TB"
+  }
+]

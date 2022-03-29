@@ -1,6 +1,9 @@
 import unittest
+import json
 from macaw.extractors.spiders.docean import parse_js as parse_docean_js
 from macaw.extractors.spiders.vultr import parse_html as parse_vultr_html
+from macaw.normalizer import normalize_plan
+
 
 FIXTURE_PATH = 'tests/fixtures'
 RESULT_PATH = 'tests/results'
@@ -8,6 +11,7 @@ RESULT_PATH = 'tests/results'
 
 class ExtractTestCase(unittest.TestCase):
     def setUp(self):
+        self.origin = 'test'
         with open(f'{FIXTURE_PATH}/vultr_1.html', 'r') as f:
             self.vultr_1 = f.read()
         with open(f'{FIXTURE_PATH}/docean_1.html', 'r') as f:
@@ -16,16 +20,17 @@ class ExtractTestCase(unittest.TestCase):
             self.docean_2 = f.read()
 
     def test_extract_prices_all_values(self):
-        prices = parse_vultr_html(self.vultr_1)
+        plans = parse_vultr_html(self.vultr_1)
+        plans = [normalize_plan(plan, self.origin) for plan in plans]
         total_machines = 16
         expected = None
-        # with open(f'{RESULT_PATH}/vultr_1.txt', 'w') as f:
-        #     f.write(str(prices))
-        with open(f'{RESULT_PATH}/vultr_1.txt', 'r') as f:
-            expected = f.read()
+        # with open(f'{RESULT_PATH}/vultr_1.json', 'w') as f:
+        #     f.write(json.dumps(plans))
+        with open(f'{RESULT_PATH}/vultr_1.json', 'r') as f:
+            expected = json.loads(f.read())
 
-        self.assertEqual(str(prices), expected)
-        self.assertEqual(len(prices), total_machines)
+        self.assertEqual(plans, expected)
+        self.assertEqual(len(plans), total_machines)
 
     def test_item_exists_inside_prices(self):
         plans = parse_vultr_html(self.vultr_1)
@@ -51,24 +56,14 @@ class ExtractTestCase(unittest.TestCase):
 
         self.assertEqual(found_entries, number_of_matching_resources)
 
-
     def test_docean_js_extractor(self):
-        expected = [{'usd_rate_per_month': '96.00', 'cpuAmount': '1GB',
-        'cpuType': '1vCPU', 'ssdAmount': '25GB', 'ssdType': 'SSD Disk',
-        'transferAmount': '1000GB', 'link': 's-1vcpu-1gb'},
-        {'usd_rate_per_month': '6.00', 'cpuAmount': '2GB', 'cpuType': '1vCPU',
-        'ssdAmount': '50GB', 'ssdType': 'SSD Disk', 'transferAmount': '2TB',
-        'link': 's-1vcpu-2gb'}, {'usd_rate_per_month': '18.00', 'cpuAmount': '8GB',
-        'cpuType': '4vCPUs', 'ssdAmount': '160GB',
-        'ssdType': 'SSD Disk', 'transferAmount': '5TB', 'link': 's-4vcpu-8gb'}, 
-        {'usd_rate_per_month': '12.00', 'cpuAmount': '16GB', 'cpuType': '8 AMD CPUs',
-        'ssdAmount': '320GB', 'ssdType': 'NVMe SSDs', 'transferAmount': '6TB',
-        'link': 's-8vcpu-16gb-amd'}, {'usd_rate_per_month': '24.00', 'cpuAmount': '4GB',
-        'cpuType': '2 AMD CPUs', 'ssdAmount': '80GB', 'ssdType': 'NVMe SSDs',
-        'transferAmount': '4TB', 'link': 's-2vcpu-4gb-amd'}]
+        plans = parse_docean_js(self.docean_2)
+        plans = [normalize_plan(plan, self.origin) for plan in plans]
 
-        result = parse_docean_js(self.docean_2)
-        self.assertEqual(result, expected)
+        with open(f'{RESULT_PATH}/docean_2.json', 'r') as f:
+            expected = json.loads(f.read())
+
+        self.assertEqual(plans, expected)
 
 
 if __name__ == '__main__':
