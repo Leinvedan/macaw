@@ -1,19 +1,19 @@
-import time
+import asyncio
 import logging
 import hashlib
 from os.path import exists
-import requests
+import aiohttp
 
 
-def get_content(url: str) -> str:
+async def get_content(url: str, sleep: int=0) -> str:
     '''
-    Returns a tuple with `content type` and
-    `local cached` content to avoid multiple requests
-    on the same page.
+    Returns a tuple with `local cached` content.
 
-    - return: `(type: PageType, content: str)`
+    To avoid multiple requests on the same page, a cached
+    copy is returned, if available.
 
-    If the cache is not found, then `a request is made` to the url
+    If there's no cache, the function will wait
+    `sleep` seconds and makes a HTTP GET request to the url
     '''
     try:
         cache_key = hashlib.sha224(bytes(url, 'UTF-8')).hexdigest()
@@ -24,13 +24,17 @@ def get_content(url: str) -> str:
                 logging.info(f'returning cached version of {url}')
                 return file.read()
 
-        time.sleep(1)  # Avoid requesting too fast
+        await asyncio.sleep(sleep)  # Avoid requesting too fast
 
-        response = requests.get(url)
-        with open(file, 'w', encoding='UTF-8') as file:
-            file.write(response.text)
-            logging.info(f'retuning fresh version of {url}')
-            return response.text
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url) as response:
+
+                with open(file, 'w', encoding='UTF-8') as file:
+                    content = await response.text()
+                    logging.info(f'caching {url}')
+                    file.write(content)
+                    logging.info(f'using fresh version of {url}')
+                    return content
 
     except Exception as err:
         logging.error(f"Error using {url}: {err}")
