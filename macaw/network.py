@@ -1,4 +1,5 @@
 import time
+import logging
 import hashlib
 from os.path import exists
 import requests
@@ -20,7 +21,7 @@ def get_content(url: str) -> str:
 
         if exists(file):
             with open(file, 'r', encoding='UTF-8') as file:
-                print(f'returning cached version of {url}')
+                logging.info(f'returning cached version of {url}')
                 return file.read()
 
         time.sleep(1)  # Avoid requesting too fast
@@ -28,11 +29,11 @@ def get_content(url: str) -> str:
         response = requests.get(url)
         with open(file, 'w', encoding='UTF-8') as file:
             file.write(response.text)
-            print(f'retuning fresh version of {url}')
+            logging.info(f'retuning fresh version of {url}')
             return response.text
 
     except Exception as err:
-        print(f"Error using {url}: {err}")
+        logging.error(f"Error using {url}: {err}")
         raise Exception(err) from err
 
 

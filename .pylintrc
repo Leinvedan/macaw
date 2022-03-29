@@ -6,4 +6,5 @@ disable=
     import-error,
     E1136, # false positive with dict type
     E0001, # false positive with python 3.10 `match`
+    logging-fstring-interpolation,
     

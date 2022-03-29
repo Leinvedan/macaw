@@ -1,3 +1,4 @@
+import logging
 from pathlib import Path
 from typing import Callable
 from macaw.network import get_content
@@ -8,6 +9,9 @@ from macaw.extractors.links import extract_links
 
 
 def main():
+    logging.basicConfig(format='[%(asctime)s][%(levelname)s] %(message)s',
+                        level=logging.INFO)
+    logging.info('Starting Macaw!')
     write_data = get_writer_function()
     plans_vultr = start_crawling(**VULTR_CONFIG)
     plans_docean = start_crawling(**DOCEAN_CONFIG)
@@ -25,7 +29,7 @@ def start_crawling(origin: str, run_spider: Callable, url: dict[str, str],
     pricing_links = extract_links(landing_page, **link_query)
 
     if not pricing_links:
-        print("Link not found")
+        logging.error("Link not found! Check your config's keywords and xpath")
         return []
 
     prices = []

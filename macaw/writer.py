@@ -1,8 +1,9 @@
 import sys
 import json
 import csv
-from macaw.configs import FIELD_NAMES
+import logging
 from typing import Callable
+from macaw.configs import FIELD_NAMES
 
 OUT_FILENAME = 'plans'
 
@@ -14,7 +15,7 @@ def get_writer_function() -> Callable:
     '''
 
     if len(sys.argv) < 2:
-        print('Please choose a output argument')
+        logging.warning('Please choose a output argument')
         print_help()
         sys.exit(1)
 
@@ -29,14 +30,14 @@ def get_writer_function() -> Callable:
         case '--save_csv':
             return write_as_csv
         case _:
-            print('Invalid argument')
+            logging.error('Invalid argument')
             print_help()
             sys.exit(1)
 
 
 def print_help():
-    print('--print: prints the result in stdout')
-    print('--save_json: saves the result as plans.json file')
+    logging.info('--print: prints the result in stdout')
+    logging.info('--save_json: saves the result as plans.json file')
 
 
 def write_as_json(data: list[dict[str, str]]):
