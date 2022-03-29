@@ -1,17 +1,46 @@
 # Macaw o Web Crawler!
 
+![Actions Status](https://github.com/Leinvedan/macaw/actions/workflows/python-app.yml/badge.svg)
+![Version](https://img.shields.io/badge/version-1.0.0-green)
+
+
+<p align="center">
+    <img src="./static/icon.svg" width="300" height="300" style="display:flex align-self: center">
+</p>
+
+> SVG de https://www.svgrepo.com/svg/140753/macaw
+
+# Índice
+
+1. [Executando o projeto](#executando-o-projeto)
+    * [argumentos](#argumentos)
+    * [com python](#com-python)
+    * [com docker](#com-docker)
+2. [Argumentos](#argumentos)
+
+2. [Aviso sobre commits antigos](#aviso-sobre-commits-antigos)
+3. [Relatório da construção do projeto](#relatório-da-construção-do-projeto)
+
 ## Executando o projeto
 
 **`Macaw`** pode ser executado tanto com argumentos de linha de comando, quanto de forma iterativa.
+
+### Argumentos
+
+| Argumento                    | Descrição                    |
+|------------------------------|------------------------------|
+| `--print`    | Imprime os resultados no terminal            |
+| `--save_json`| Salva os resultados no arquivo  `plans.json` |
+| `--save_csv` | Salva os resultados num arquivo  `plans.csv` |
 
 ### Com Python
 
 - Instalar dependencias: `make setup`
 - Executar os testes: `make test`
 - Executar lint: `make lint`
-- Executar o projeto: 
-  - Com argumentos: `python -m macaw [args]`, ex: `python -m macaw --save_json`
-  - Iterativa: `python -m macaw` ou `make run`
+- Executar o projeto:
+  - Com argumentos: `python -m macaw [args]`
+  - Forma iterativa: `python -m macaw` ou `make run`
 
 #### Exemplos:
 ```bash
@@ -26,14 +55,6 @@ python -m macaw --save_json
 - Build da imagem: `make docker-build`
 - Executar a imagem: `make docker-run`
 
-### Argumentos
-
-| Argumento                    | Descrição                    |
-|------------------------------|------------------------------|
-| `--print`    | Imprime os resultados no terminal            |
-| `--save_json`| Salva os resultados no arquivo  `plans.json` |
-| `--save_csv` | Salva os resultados num arquivo  `plans.csv` |
-
 ## Aviso sobre commits antigos!
 
 Os commits antigos estão organizados em tags para facilitar a consulta. Cada tag representa o `primeiro momento` em que a feature ficou pronta.
@@ -45,7 +66,7 @@ Os commits antigos estão organizados em tags para facilitar a consulta. Cada ta
 
 A branch `master` é a **versão final**
 
-## Os pensamentos que tive enquanto construia o projeto (diferente por commit)
+## Relatório da construção do projeto
 
 ### Commit Etapa 1: página-alvo, imprime na tela
 Minha ideia inicial foi fazer o mínimo pra imprimir na tela.
@@ -358,6 +379,6 @@ O enum de js e html(PageType) já não faz mais muito sentido existir, já que a
 
 Lembrei que o Scrappy tinha uma lógica em que, cada extrator era uma `spider`. Resolvi trazer a mesma abstração para esse projeto. Cada função que possui uma lógica relacionada à extração de uma página será uma `spider`.
 
-# Extras
+## Extras
 
 Coloquei um docker para facilitar quem não usa um virtualenv. Também adicionei uma versão iterativa, em vez do programa fechar quando ele não recebe nenhum argumento.
