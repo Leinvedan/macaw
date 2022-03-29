@@ -1,130 +1,130 @@
 [
   {
     "ORIGIN": "test",
-    "CPU / VCPU": "1",
+    "CPU / VCPU": "1vCPU",
     "MEMORY": "1GB",
     "BANDWIDTH / TRANSFER": "2.00TB",
     "STORAGE / SSD DISK": "25GB",
-    "PRICE [$/mo]": "$6.00"
+    "PRICE [$/mo]": "6.00"
   },
   {
     "ORIGIN": "test",
-    "CPU / VCPU": "1",
+    "CPU / VCPU": "1vCPU",
     "MEMORY": "2GB",
     "BANDWIDTH / TRANSFER": "3.00TB",
     "STORAGE / SSD DISK": "50GB",
-    "PRICE [$/mo]": "$12.00"
+    "PRICE [$/mo]": "12.00"
   },
   {
     "ORIGIN": "test",
-    "CPU / VCPU": "2",
+    "CPU / VCPU": "2vCPU",
     "MEMORY": "2GB",
     "BANDWIDTH / TRANSFER": "4.00TB",
     "STORAGE / SSD DISK": "60GB",
-    "PRICE [$/mo]": "$18.00"
+    "PRICE [$/mo]": "18.00"
   },
   {
     "ORIGIN": "test",
-    "CPU / VCPU": "2",
+    "CPU / VCPU": "2vCPU",
     "MEMORY": "4GB",
     "BANDWIDTH / TRANSFER": "5.00TB",
     "STORAGE / SSD DISK": "100GB",
-    "PRICE [$/mo]": "$24.00"
+    "PRICE [$/mo]": "24.00"
   },
   {
     "ORIGIN": "test",
-    "CPU / VCPU": "4",
+    "CPU / VCPU": "4vCPU",
     "MEMORY": "8GB",
     "BANDWIDTH / TRANSFER": "6.00TB",
     "STORAGE / SSD DISK": "180GB",
-    "PRICE [$/mo]": "$48.00"
+    "PRICE [$/mo]": "48.00"
   },
   {
     "ORIGIN": "test",
-    "CPU / VCPU": "4",
+    "CPU / VCPU": "4vCPU",
     "MEMORY": "12GB",
     "BANDWIDTH / TRANSFER": "7.00TB",
     "STORAGE / SSD DISK": "260GB",
-    "PRICE [$/mo]": "$72.00"
+    "PRICE [$/mo]": "72.00"
   },
   {
     "ORIGIN": "test",
-    "CPU / VCPU": "8",
+    "CPU / VCPU": "8vCPU",
     "MEMORY": "16GB",
     "BANDWIDTH / TRANSFER": "8.00TB",
     "STORAGE / SSD DISK": "350GB",
-    "PRICE [$/mo]": "$96.00"
+    "PRICE [$/mo]": "96.00"
   },
   {
     "ORIGIN": "test",
-    "CPU / VCPU": "12",
+    "CPU / VCPU": "12vCPU",
     "MEMORY": "24GB",
     "BANDWIDTH / TRANSFER": "12.00TB",
     "STORAGE / SSD DISK": "500GB",
-    "PRICE [$/mo]": "$144.00"
+    "PRICE [$/mo]": "144.00"
   },
   {
     "ORIGIN": "test",
-    "CPU / VCPU": "1",
+    "CPU / VCPU": "1vCPU",
     "MEMORY": "1GB",
     "BANDWIDTH / TRANSFER": "2.00TB",
     "STORAGE / SSD DISK": "25GB",
-    "PRICE [$/mo]": "$6.00"
+    "PRICE [$/mo]": "6.00"
   },
   {
     "ORIGIN": "test",
-    "CPU / VCPU": "1",
+    "CPU / VCPU": "1vCPU",
     "MEMORY": "2GB",
     "BANDWIDTH / TRANSFER": "3.00TB",
     "STORAGE / SSD DISK": "500000000GB",
-    "PRICE [$/mo]": "$12.00"
+    "PRICE [$/mo]": "12.00"
   },
   {
     "ORIGIN": "test",
-    "CPU / VCPU": "2",
+    "CPU / VCPU": "2vCPU",
     "MEMORY": "2GB",
     "BANDWIDTH / TRANSFER": "4.00TB",
     "STORAGE / SSD DISK": "60GB",
-    "PRICE [$/mo]": "$18.00"
+    "PRICE [$/mo]": "18.00"
   },
   {
     "ORIGIN": "test",
-    "CPU / VCPU": "2",
+    "CPU / VCPU": "2vCPU",
     "MEMORY": "4GB",
     "BANDWIDTH / TRANSFER": "5.00TB",
     "STORAGE / SSD DISK": "100GB",
-    "PRICE [$/mo]": "$24.00"
+    "PRICE [$/mo]": "24.00"
   },
   {
     "ORIGIN": "test",
-    "CPU / VCPU": "4",
+    "CPU / VCPU": "4vCPU",
     "MEMORY": "8GB",
     "BANDWIDTH / TRANSFER": "6.00TB",
     "STORAGE / SSD DISK": "180GB",
-    "PRICE [$/mo]": "$48.00"
+    "PRICE [$/mo]": "48.00"
   },
   {
     "ORIGIN": "test",
-    "CPU / VCPU": "4",
+    "CPU / VCPU": "4vCPU",
     "MEMORY": "12GB",
     "BANDWIDTH / TRANSFER": "7.00TB",
     "STORAGE / SSD DISK": "260GB",
-    "PRICE [$/mo]": "$72.00"
+    "PRICE [$/mo]": "72.00"
   },
   {
     "ORIGIN": "test",
-    "CPU / VCPU": "8",
+    "CPU / VCPU": "8vCPU",
     "MEMORY": "16GB",
     "BANDWIDTH / TRANSFER": "8.00TB",
     "STORAGE / SSD DISK": "350GB",
-    "PRICE [$/mo]": "$96.00"
+    "PRICE [$/mo]": "96.00"
   },
   {
     "ORIGIN": "test",
-    "CPU / VCPU": "12",
+    "CPU / VCPU": "12vCPU",
     "MEMORY": "24GB",
     "BANDWIDTH / TRANSFER": "12.00TB",
     "STORAGE / SSD DISK": "500GB",
-    "PRICE [$/mo]": "$144.00"
+    "PRICE [$/mo]": "144.00"
   }
 ]

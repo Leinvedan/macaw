@@ -43,6 +43,10 @@ def parse_html(html: str) -> list[dict[str, str]]:
                 if value_unit:
                     value = f'{value}{value_unit.group()}'
 
+                if resource_type.lower() in ['cpu', 'vcpu']:
+                    value = f'{value}{resource_type}'
+
+
                 if len(extracted) - 1 < idx:
                     extracted.append({})
 

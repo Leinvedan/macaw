@@ -21,6 +21,9 @@ def normalize_plan(plan: dict[str, str], origin: str) -> dict[str, str]:
                 result[FIELD_NAMES[4]] = plan[key]
 
             case ['/mo'] | ['usd_rate_per_month']:
-                result[FIELD_NAMES[5]] = plan[key]
+                result[FIELD_NAMES[5]] = _normalize_cost(plan[key])
 
     return result
+
+def _normalize_cost(cost: str) -> str:
+    return cost.replace('$', '')

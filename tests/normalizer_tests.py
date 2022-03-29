@@ -11,7 +11,7 @@ class NormalizerTestCase(unittest.TestCase):
             "MEMORY": "1GB",
             "STORAGE / SSD DISK": "25GB",
             "BANDWIDTH / TRANSFER" : "2.00TB",
-            "PRICE [$/mo]": "$6.00",
+            "PRICE [$/mo]": "6.00",
         }
     def test_normalize_different_names(self):
         plan = {
