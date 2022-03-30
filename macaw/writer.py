@@ -53,6 +53,7 @@ def _get_command():
 def _print_help():
     logging.info('--print: prints the result in stdout')
     logging.info('--save_json: saves the result as plans.json file')
+    logging.info('--save_csv: saves the result as plans.csv file')
 
 
 def _write_as_json(data: list[dict[str, str]]):
