@@ -8,24 +8,55 @@
     <img src="./static/icon.svg" width="300" height="300" style="display:flex align-self: center">
 </p>
 
-> SVG de https://www.svgrepo.com/svg/140753/macaw
+> SVG de: https://www.svgrepo.com/svg/140753/macaw
 
 # Índice
-
-1. [Executando o projeto](#executando-o-projeto)
+1. [Sobre](#sobre)
+2. [Como funciona](#como-funciona)
+3. [Executando o projeto](#executando-o-projeto)
     * [argumentos](#argumentos)
     * [com python](#com-python)
     * [com docker](#com-docker)
-2. [Argumentos](#argumentos)
+4. [Argumentos](#argumentos)
 
-2. [Aviso sobre commits antigos](#aviso-sobre-commits-antigos)
-3. [Relatório da construção do projeto](#relatório-da-construção-do-projeto)
+5. [Aviso sobre commits antigos](#aviso-sobre-commits-antigos)
+6. [Relatório da construção do projeto](#relatório-da-construção-do-projeto)
 
-## Executando o projeto
+# Sobre
+
+Macaw é um `webcrawler` que utiliza de seus extratores para extrair dados de páginas específicas.
+
+# Como funciona
+
+Para extrair os dados de uma página, é necessário definir uma configuração no arquivo `configs.py`, ex:
+```python
+MY_CONFIG = {
+    'origin': 'Test Page',              # Nome / identificador
+    'run_spider': parse_test_html,      # função python que vai extrair os dados
+    'url': {                            # primeira URL que será acessada
+        'domain': 'https://www.test.com',
+        'path': '/products/',
+    },
+    'link_query': {                     # Consulta aplicada para buscar
+                                        # outros links dentro da primeira página
+        'keywords': ['/pricing', 'cloud'],# Palavras chave contidas no `link`
+        'xpath': HREF_XPATH # Xpath do link, como por exemplo, um xpath para buscar:
+                            # <a href=""> ou <script src="">
+    }
+}
+```
+
+Cada extrator é chamado individualmente de `spider` e seu código python fica na pasta `macaw/extractors/spiders`. 
+
+A função de extração receberá uma string com todo o `html` ou `js` da página. ela(função) deve retornar uma lista de dicionários, que serão posteriormente processados pelo `normalizer`.
+
+As chaves do dicionário precisam estar registradas no `normalizer`, caso contrário, elas serão ignoradas. Isso garante que a base de dados resultante estará sempre normalizada.
+
+# Executando o projeto
 
 **`Macaw`** pode ser executado tanto com argumentos de linha de comando, quanto de forma iterativa.
 
-### Argumentos
+## Argumentos
 
 | Argumento                    | Descrição                    |
 |------------------------------|------------------------------|
@@ -33,7 +64,7 @@
 | `--save_json`| Salva os resultados no arquivo  `plans.json` |
 | `--save_csv` | Salva os resultados num arquivo  `plans.csv` |
 
-### Com Python
+## Com Python
 
 - Instalar dependencias: `make setup`
 - Executar os testes: `make test`
@@ -42,7 +73,7 @@
   - Com argumentos: `python -m macaw [args]`
   - Forma iterativa: `python -m macaw` ou `make run`
 
-#### Exemplos:
+### Exemplos:
 ```bash
 python -m macaw --print
 python -m macaw --save_csv
@@ -51,11 +82,11 @@ python -m macaw --save_json
 
 > Obs: Docker e makefile só dão suporte à execução iterativa
 
-### Com docker
+## Com docker
 - Build da imagem: `make docker-build`
 - Executar a imagem: `make docker-run`
 
-## Aviso sobre commits antigos!
+# Aviso sobre commits antigos!
 
 Os commits antigos estão organizados em tags para facilitar a consulta. Cada tag representa o `primeiro momento` em que a feature ficou pronta.
 
@@ -66,9 +97,9 @@ Os commits antigos estão organizados em tags para facilitar a consulta. Cada ta
 
 A branch `master` é a **versão final**
 
-## Relatório da construção do projeto
+# Relatório da construção do projeto
 
-### Commit Etapa 1: página-alvo, imprime na tela
+## Commit Etapa 1: página-alvo, imprime na tela
 Minha ideia inicial foi fazer o mínimo pra imprimir na tela.
 Uma das primeiras prioridades foi salvar o HTML da página
 numa pasta local (chamei de cache) pra evitar ficar fazendo
@@ -121,13 +152,13 @@ A maior dificuldade nessa primeira etapa foi a construção da regex... Coloquei
 
 Quando os dados já estavam sendo impressos na tela, resolvi escrever uns testes pra validar se os valores tavam corretos (não estavam >.>). Com os resultados dos testes fui refinando o código. 
 
-### Commit Etapa 2: página-alvo, imprime na tela, salva em json
+## Commit Etapa 2: página-alvo, imprime na tela, salva em json
 
 renomeei o `handle_cli` para `get_save_function` e o fiz retornar uma função responsável por tratar o output. Provavelmente vou renomear o `utils.py`.
 
 Também corrigi um bug em que argumentos de linha de comando inválidos ainda eram processados, o `match` estava sem um caso padrão
 
-### Commit Etapa 2: feat: update output format
+## Commit Etapa 2: feat: update output format
 
 Pensando melhor, resolvi alterar o formato que os dados estão sendo escritos,
 até pra facilitar a escrita em CSV. Faz mais sentido os dados estarem todos dentro de um único objeto. O arquivo final também fica bem menor.
@@ -146,7 +177,7 @@ Novo formato:
 ]
 ```
 
-### Commit Etapa 2: feat: normalize output keys
+## Commit Etapa 2: feat: normalize output keys
 
 Para padronizar o nome das colunas, eu resolvi fazer uma função para fazer o `normalize` das chaves. Os maiores motivos disso foram:
 - `CPU` e `vCPU` compartilham a mesma chave `CPU / VCPU`
@@ -155,15 +186,15 @@ para um nome comum, deixando comparáveis os dados de futuras páginas.
 
 essa função de `normalize` agora é aplicada antes do processo de escrita.
 
-### Commit Etapa 3: página-alvo, imprime na tela, salva em json, salva em csv
+## Commit Etapa 3: página-alvo, imprime na tela, salva em json, salva em csv
 
 Ter os dados normalizados facilitou bastante a conversão pra CSV.
 
 Como o `FIELD_NAMES` estava sendo usado em 2 arquivos e não faz muito sentido o módulo de `normalize` importar o de escrita, resolvi criar um arquivo de constantes.
 
-### Etapa 4
+## Etapa 4
 
-### Encontrando os preços
+## Encontrando os preços
 
 Acessando a segunda URL e interagindo com a página, eu notei que os dados de preço não estavam no HTML inicial. 
 
@@ -322,7 +353,7 @@ Agora o problema é, essa hash `1a7cdb1f9a255535` do `chunk` `pricing-1a7cdb1f9a
 
 Pegar diretamente desses endpoints pode funcionar hoje, mas futuramente pode parar de funcionar. Então o ideal seria tirar esse link direto do Head da página.
 
-### Modificando o código
+## Modificando o código
 
 Pensando no código que eu escrevi até aqui, seria modificar o `link_extractor` pra pegar o link de pricing do Head. Possivelmente vai ter algo bloqueando o request para o `chunk`, mas eu gostaria de testar primeiro.
 
@@ -341,7 +372,7 @@ Passar o json pelo `normalizer` atualizado e seguir o processo normal.
 
 Como o código está usando o Parsel pra extrair os dados do HTML, eu vou ter que refatorar toda a parte de renderização para fora e separar os tipos de extração HTML e JS.
 
-### Etapa 4 - feat: add xpath parameter
+## Etapa 4 - feat: add xpath parameter
 
 O número de parâmetros está ficando muito grande, agora é um bom momento pra começar a agrupar os dados num objeto de configuração:
 ```
@@ -351,7 +382,7 @@ keywords = ['/pricing', 'cloud']
 xpath = HREF_XPATH
 ```
 
-### Etapa 4 - refactor: rearrange extractor and constants
+## Etapa 4 - refactor: rearrange extractor and constants
 
 Agora que a lógica de extrair os planos vai ser dividida em `js` e `html`, pensei em separar as extrações na seguinte forma:
 - extractors.links => Funções para extração de links num `html`
@@ -359,7 +390,7 @@ Agora que a lógica de extrair os planos vai ser dividida em `js` e `html`, pens
 
 A existência do `constants` e `configs` estava ambígua, resolvi juntar ambos no `configs`.
 
-### Etapa 4 - 2 páginas-alvo
+## Etapa 4 - 2 páginas-alvo
 
 Tirando o processo de extração dos dados do JS, todo o resto do código foi reaproveitado(leitura das configurações, normalização e gravação em arquivos).
 
