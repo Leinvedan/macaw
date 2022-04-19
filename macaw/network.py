@@ -38,7 +38,7 @@ async def get_content(url: str, sleep: int=0) -> str:
 
     except Exception as err:
         logging.error(f"Error using {url}: {err}")
-        raise Exception(err) from err
+        raise
 
 
 def _get_file_type(url: str) -> str:
